@@ -1,13 +1,15 @@
-import { context, trace, Span, SpanStatusCode } from '@opentelemetry/api';
-import { getTracer } from '@opentelemetry/api';
-import { CUSTOM_ATTRIBUTES } from './attributes.js';
-import { AGENT_STATUS } from './attributes.js';
+import { context, trace, Span, SpanStatusCode, Tracer, Attributes } from '@opentelemetry/api';
+import { CUSTOM_ATTRIBUTES, AGENT_STATUS } from './attributes.js';
 
 export interface AgentSpanOptions {
   statementId: string;
   actionName: string;
   deliverableType?: string;
   attributes?: Record<string, string | number | boolean>;
+}
+
+function getTracer(name: string): Tracer {
+  return trace.getTracer(name, '1.0.0');
 }
 
 export async function withAgentSpan<T>(
@@ -18,11 +20,11 @@ export async function withAgentSpan<T>(
   const tracer = getTracer('infogen-agent');
   return tracer.startActiveSpan(`agent.${actionName}`, {
     attributes: {
-    [CUSTOM_ATTRIBUTES.STATEMENT_ID]: statementId,
-    [CUSTOM_ATTRIBUTES.AGENT_ACTION]: actionName,
-    [CUSTOM_ATTRIBUTES.AGENT_STATUS]: AGENT_STATUS.RUNNING,
-  },
-  }, async (span) => {
+      [CUSTOM_ATTRIBUTES.STATEMENT_ID]: statementId,
+      [CUSTOM_ATTRIBUTES.AGENT_ACTION]: actionName,
+      [CUSTOM_ATTRIBUTES.AGENT_STATUS]: AGENT_STATUS.RUNNING,
+    },
+  }, async (span: Span) => {
     try {
       const result = await fn(span);
       span.setStatus({ code: SpanStatusCode.OK });
@@ -46,16 +48,14 @@ export async function withLLMSpan<T>(
   fn: (span: Span) => Promise<T>
 ): Promise<T> {
   const tracer = getTracer('infogen-llm');
-  const parentContext = context.active();
-  const parentSpan = trace.getSpan(parentContext);
+  // startActiveSpan automatically uses current context as parent
 
   return tracer.startActiveSpan('llm.inference', {
-    parent: parentSpan,
     attributes: {
-    [CUSTOM_ATTRIBUTES.LLM_PROVIDER]: provider,
-    [CUSTOM_ATTRIBUTES.LLM_MODEL]: model,
-  },
-  }, async (span) => {
+      [CUSTOM_ATTRIBUTES.LLM_PROVIDER]: provider,
+      [CUSTOM_ATTRIBUTES.LLM_MODEL]: model,
+    },
+  }, async (span: Span) => {
     try {
       const result = await fn(span);
       span.setStatus({ code: SpanStatusCode.OK });
@@ -77,16 +77,14 @@ export async function withToolSpan<T>(
   fn: (span: Span) => Promise<T>
 ): Promise<T> {
   const tracer = getTracer('infogen-tools');
-  const parentContext = context.active();
-  const parentSpan = trace.getSpan(parentContext);
+  // startActiveSpan automatically uses current context as parent
 
   return tracer.startActiveSpan(`tool.${toolName}`, {
-    parent: parentSpan,
     attributes: {
-    [CUSTOM_ATTRIBUTES.TOOL_NAME]: toolName,
-    [CUSTOM_ATTRIBUTES.TOOL_ARGUMENTS]: JSON.stringify(args),
-  },
-  }, async (span) => {
+      [CUSTOM_ATTRIBUTES.TOOL_NAME]: toolName,
+      [CUSTOM_ATTRIBUTES.TOOL_ARGUMENTS]: JSON.stringify(args),
+    },
+  }, async (span: Span) => {
     try {
       const result = await fn(span);
       span.setStatus({ code: SpanStatusCode.OK });
@@ -102,9 +100,7 @@ export async function withToolSpan<T>(
   });
 }
 
-export function createChildSpan(name: string, attributes?: Record<string, unknown>): Span {
+export function createChildSpan(name: string, attributes?: Attributes): Span {
   const tracer = getTracer('infogen-custom');
-  const parentContext = context.active();
-  const parentSpan = trace.getSpan(parentContext);
-  return tracer.startSpan(name, { parent: parentSpan, attributes });
+  return tracer.startSpan(name, { attributes });
 }

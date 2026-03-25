@@ -11,7 +11,12 @@
     "test": "node --import tsx --test '**/*.test.ts'",
     "test:coverage": "c8 --include=src/**/*.ts --all node --import tsx --test '**/*.test.ts'"
   },
-  "keywords": ["opentelemetry", "tracing", "observability", "agent"],
+  "keywords": [
+    "opentelemetry",
+    "tracing",
+    "observability",
+    "agent"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
@@ -21,5 +26,13 @@
     "c8": "^10.0.0",
     "tsx": "^4.0.0",
     "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.1",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.214.0",
+    "@opentelemetry/resources": "^2.6.1",
+    "@opentelemetry/sdk-node": "^0.214.0",
+    "@opentelemetry/sdk-trace-base": "^2.6.1",
+    "@opentelemetry/semantic-conventions": "^1.40.0"
   }
 }

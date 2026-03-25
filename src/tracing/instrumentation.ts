@@ -1,7 +1,7 @@
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
-import { Resource } from '@opentelemetry/resources';
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { resourceFromAttributes } from '@opentelemetry/resources';
+import { SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
 
 let sdk: NodeSDK | null = null;
@@ -36,9 +36,9 @@ export async function initializeTracing(config: TracingConfig = {}): Promise<Nod
     timeoutMillis,
   });
 
-  const resource = new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-    [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
+  const resource = resourceFromAttributes({
+    [SEMRESATTRS_SERVICE_NAME]: serviceName,
+    [SEMRESATTRS_SERVICE_VERSION]: serviceVersion,
     'infogen.project.name': 'infogen',
     'infogen.trace.version': '1.0.0',
   });
