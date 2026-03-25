@@ -45,7 +45,13 @@ Plans:
   2. Traces include nested spans for LLM calls, tool calls, and agent actions
   3. Each span has millisecond-precision timestamps
   4. Traces can be exported to standard OTLP format for downstream tools
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
+
+Plans:
+- [ ] 02-01-PLAN.md - Project setup and OpenTelemetry SDK installation (OBS-01)
+- [ ] 02-02-PLAN.md - Core trace instrumentation and span helpers (OBS-01)
+- [ ] 02-03-PLAN.md - OTLP exporter and trace storage (OBS-01)
+- [ ] 02-04-PLAN.md - Test infrastructure and demo example (OBS-01)
 
 ### Phase 3: Observability Interface
 **Goal**: Users can visualize, inspect, and filter execution traces through an interactive interface
@@ -101,7 +107,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Methodology Definition | 3/3 | Complete | 2026-03-25 |
-| 2. Trace Infrastructure | 0/TBD | Not started | - |
+| 2. Trace Infrastructure | 0/4 | Not started | - |
 | 3. Observability Interface | 0/TBD | Not started | - |
 | 4. Video Capture | 0/TBD | Not started | - |
 | 5. Claude Code Integration | 0/TBD | Not started | - |
