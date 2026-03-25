@@ -1,0 +1,76 @@
+.trace-list {
+  padding: 1rem;
+}
+
+.trace-list h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.traces {
+  display: grid;
+  gap: 1rem;
+}
+
+.trace-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.trace-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.trace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.trace-id {
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: #666;
+  background: #f5f5f5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.statement-id {
+  font-weight: 500;
+  color: #2196f3;
+}
+
+.trace-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.span-count {
+  background: #e3f2fd;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+}
+
+.duration {
+  font-family: monospace;
+}
+
+.loading,
+.empty,
+.error {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.error {
+  color: #f44336;
+}
