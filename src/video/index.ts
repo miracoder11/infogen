@@ -56,3 +56,18 @@ export { AutomationScript, getLocator } from './automation.js';
 
 // Script Executor
 export { ScriptExecutor } from './executor.js';
+
+// Annotations
+export { AnnotationTimeline, createTimestampAnnotation, createTextAnnotation, createHighlightAnnotation, createArrowAnnotation, formatTimestamp, parseTimestamp } from './annotations.js';
+
+// Metadata
+export type { VideoMetadata } from './metadata.js';
+export { createVideoMetadata, saveMetadata, loadMetadata, findMetadataFile, hasMetadata, deleteMetadata } from './metadata.js';
+
+// Post-Processor
+export type { ProcessOptions, TransitionOptions } from './post-processor.js';
+export { VideoPostProcessor, FFmpegNotFoundError, isFFmpegAvailable } from './post-processor.js';
+
+// Pipeline
+export type { PipelineConfig, PipelineResult, ProgressCallback } from './pipeline.js';
+export { VideoPipeline } from './pipeline.js';
