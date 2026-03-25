@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "infogen": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "/Users/miracle/projects/vibeject/infoGen"
+    }
+  }
+}

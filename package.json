@@ -9,6 +9,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "server": "node --import tsx src/api/cli.ts",
+    "mcp": "node --import tsx src/mcp-server/index.ts",
     "demo": "node --import tsx src/examples/trace-demo.ts",
     "test": "node --import tsx --test '**/*.test.ts'",
     "test:coverage": "c8 --include=src/**/*.ts --all node --import tsx --test '**/*.test.ts'"
@@ -32,6 +33,7 @@
     "typescript": "^5.6.0"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/exporter-trace-otlp-proto": "^0.214.0",
     "@opentelemetry/resources": "^2.6.1",
