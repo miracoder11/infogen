@@ -27,7 +27,7 @@
 
 ### OBS — Observability (可观测性)
 
-- [ ] **OBS-01**: Trace捕获与层级Span支持
+- [x] **OBS-01**: Trace捕获与层级Span支持
   - OpenTelemetry兼容
   - 支持嵌套Span（LLM调用、工具调用、Agent动作）
   - 时间戳精度毫秒级
@@ -125,7 +125,7 @@
 | METH-01 | Phase 1 | Complete |
 | METH-02 | Phase 1 | Complete |
 | METH-03 | Phase 1 | Complete |
-| OBS-01 | Phase 2 | Pending |
+| OBS-01 | Phase 2 | Complete |
 | OBS-02 | Phase 3 | Pending |
 | OBS-03 | Phase 3 | Pending |
 | OBS-04 | Phase 3 | Pending |

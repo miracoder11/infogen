@@ -48,7 +48,7 @@ Plans:
 **Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md - Project setup and OpenTelemetry SDK installation (OBS-01)
+- [x] 02-01-PLAN.md - Project setup and OpenTelemetry SDK installation (OBS-01)
 - [x] 02-02-PLAN.md - Core trace instrumentation and span helpers (OBS-01)
 - [x] 02-03-PLAN.md - OTLP exporter and trace storage (OBS-01)
 - [x] 02-04-PLAN.md - Test infrastructure and demo example (OBS-01)
