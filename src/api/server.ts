@@ -78,7 +78,8 @@ app.get('/api/traces', (req: Request, res: Response) => {
  */
 app.get('/api/traces/:id', (req: Request, res: Response) => {
   const storage = getTraceStorage();
-  const trace = storage.get(req.params.id);
+  const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+  const trace = storage.get(id);
 
   if (!trace) {
     res.status(404).json({ error: 'Trace not found' });
@@ -95,7 +96,7 @@ app.get('/api/traces/:id', (req: Request, res: Response) => {
     storedAt: trace.storedAt,
     spans: trace.spans.map(span => ({
       spanId: span.spanContext().spanId,
-      parentSpanId: span.parentSpanId,
+      parentSpanId: (span as any).parentSpanId || null,
       name: span.name,
       kind: span.kind,
       startTime: span.startTime,
