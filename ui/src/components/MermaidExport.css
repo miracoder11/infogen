@@ -1,0 +1,231 @@
+/* MermaidExport Component Styles */
+
+.mermaid-export-panel {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.export-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.export-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.close-btn {
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  color: #64748b;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* Type Selector */
+.export-type-selector {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.export-type-selector label {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.type-btn {
+  flex: 1;
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.type-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.type-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+/* Preview */
+.export-preview {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.preview-label {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.preview-canvas {
+  min-height: 200px;
+  max-height: 300px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.preview-canvas svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.preview-loading {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.preview-error {
+  color: #dc2626;
+  text-align: center;
+}
+
+.preview-error span {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.preview-error p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Code Block */
+.export-code {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.code-header {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.code-block {
+  margin: 0;
+  padding: 12px;
+  background: #1e293b;
+  border-radius: 6px;
+  overflow-x: auto;
+  max-height: 200px;
+}
+
+.code-block code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #e2e8f0;
+  white-space: pre;
+}
+
+/* Actions */
+.export-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.action-btn.copy {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.action-btn.copy:hover {
+  background: #e2e8f0;
+}
+
+.action-btn.download {
+  background: #3b82f6;
+  color: white;
+}
+
+.action-btn.download:hover {
+  background: #2563eb;
+}
+
+.action-btn.live {
+  background: #8b5cf6;
+  color: white;
+}
+
+.action-btn.live:hover {
+  background: #7c3aed;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .mermaid-export-panel {
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .type-buttons {
+    flex-direction: column;
+  }
+
+  .export-actions {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    min-width: 100%;
+  }
+}
