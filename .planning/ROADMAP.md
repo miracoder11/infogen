@@ -49,9 +49,9 @@ Plans:
 
 Plans:
 - [ ] 02-01-PLAN.md - Project setup and OpenTelemetry SDK installation (OBS-01)
-- [ ] 02-02-PLAN.md - Core trace instrumentation and span helpers (OBS-01)
-- [ ] 02-03-PLAN.md - OTLP exporter and trace storage (OBS-01)
-- [ ] 02-04-PLAN.md - Test infrastructure and demo example (OBS-01)
+- [x] 02-02-PLAN.md - Core trace instrumentation and span helpers (OBS-01)
+- [x] 02-03-PLAN.md - OTLP exporter and trace storage (OBS-01)
+- [x] 02-04-PLAN.md - Test infrastructure and demo example (OBS-01)
 
 ### Phase 3: Observability Interface
 **Goal**: Users can visualize, inspect, and filter execution traces through an interactive interface
