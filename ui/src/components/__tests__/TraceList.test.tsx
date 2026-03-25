@@ -41,8 +41,13 @@ describe('TraceList', () => {
     render(<TraceList />);
 
     await waitFor(() => {
-      expect(screen.getByText(/ds-20260326-001/)).toBeInTheDocument();
-      expect(screen.getByText(/ds-20260326-002/)).toBeInTheDocument();
+      // Check for trace cards by looking for span counts which are unique to the cards
+      expect(screen.getByText(/5 spans/)).toBeInTheDocument();
+      expect(screen.getByText(/3 spans/)).toBeInTheDocument();
+      // Check that statement IDs appear in the filter dropdown
+      const options = screen.getAllByRole('option');
+      expect(options.some(opt => opt.textContent?.includes('ds-20260326-001'))).toBe(true);
+      expect(options.some(opt => opt.textContent?.includes('ds-20260326-002'))).toBe(true);
     });
   });
 

@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { TraceDetail } from './TraceDetail';
+import { FilterControls, Filters } from './FilterControls';
+import { SearchBar } from './SearchBar';
 import './TraceList.css';
 
 export interface TraceSummary {
@@ -18,25 +20,55 @@ interface TraceListProps {
 
 export function TraceList({ onSelectTrace }: TraceListProps) {
   const [traces, setTraces] = useState<TraceSummary[]>([]);
+  const [filteredTraces, setFilteredTraces] = useState<TraceSummary[]>([]);
+  const [projects, setProjects] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedTraceId, setSelectedTraceId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState<Filters>({});
 
-  useEffect(() => {
-    fetch('/api/traces')
+  const fetchTraces = useCallback(() => {
+    setLoading(true);
+    const params = new URLSearchParams();
+
+    if (searchQuery) params.set('q', searchQuery);
+    if (filters.statementId) params.set('statementId', filters.statementId);
+    if (filters.status && filters.status !== 'all') params.set('status', filters.status);
+    if (filters.timeRange && filters.timeRange !== 'all') {
+      const now = Date.now() * 1_000_000; // ms to ns
+      const ranges: Record<string, number> = {
+        '1h': 1 * 60 * 60 * 1_000_000_000,
+        '24h': 24 * 60 * 60 * 1_000_000_000,
+        '7d': 7 * 24 * 60 * 60 * 1_000_000_000,
+      };
+      params.set('since', String(now - ranges[filters.timeRange]));
+    }
+
+    const url = `/api/traces${params.toString() ? `?${params}` : ''}`;
+
+    fetch(url)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch traces');
         return res.json();
       })
       .then((data) => {
         setTraces(data);
+        setFilteredTraces(data);
+        // Extract unique projects
+        const uniqueProjects = [...new Set(data.map((t: TraceSummary) => t.statementId).filter(Boolean))];
+        setProjects(uniqueProjects);
         setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
+  }, [searchQuery, filters]);
+
+  useEffect(() => {
+    fetchTraces();
+  }, [fetchTraces]);
 
   const handleTraceClick = (traceId: string) => {
     setSelectedTraceId(traceId);
@@ -47,23 +79,44 @@ export function TraceList({ onSelectTrace }: TraceListProps) {
     setSelectedTraceId(null);
   };
 
+  const handleFilterChange = (newFilters: Filters) => {
+    setFilters(newFilters);
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
   if (selectedTraceId) {
     return <TraceDetail traceId={selectedTraceId} onBack={handleBack} />;
   }
 
-  if (loading) return <div className="loading">Loading traces...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
-  if (traces.length === 0)
-    return <div className="empty">No traces yet. Run some agent code to generate traces.</div>;
-
   return (
-    <div className="trace-list">
-      <h2>Execution Traces</h2>
-      <div className="traces">
-        {traces.map((trace) => (
-          <TraceCard key={trace.traceId} trace={trace} onClick={() => handleTraceClick(trace.traceId)} />
-        ))}
+    <div className="trace-list-container">
+      <div className="trace-list-header">
+        <h2>Execution Traces</h2>
+        <SearchBar onSearch={handleSearch} placeholder="Search by span name, attributes..." />
       </div>
+
+      <FilterControls projects={projects} onChange={handleFilterChange} />
+
+      {loading ? (
+        <div className="loading">Loading traces...</div>
+      ) : error ? (
+        <div className="error">Error: {error}</div>
+      ) : filteredTraces.length === 0 ? (
+        <div className="empty">
+          {searchQuery || filters.statementId
+            ? 'No traces match your filters.'
+            : 'No traces yet. Run some agent code to generate traces.'}
+        </div>
+      ) : (
+        <div className="traces">
+          {filteredTraces.map((trace) => (
+            <TraceCard key={trace.traceId} trace={trace} onClick={() => handleTraceClick(trace.traceId)} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

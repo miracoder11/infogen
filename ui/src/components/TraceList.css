@@ -1,10 +1,24 @@
-.trace-list {
+.trace-list-container {
   padding: 1rem;
 }
 
-.trace-list h2 {
+.trace-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.trace-list-header h2 {
+  margin: 0;
   color: #333;
+  white-space: nowrap;
+}
+
+.trace-list-header .search-bar {
+  flex: 1;
+  max-width: 400px;
 }
 
 .traces {
