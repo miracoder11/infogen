@@ -110,5 +110,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Trace Infrastructure | 0/4 | Not started | - |
 | 3. Observability Interface | 0/TBD | Not started | - |
 | 4. Video Capture | 0/TBD | Not started | - |
-| 5. Claude Code Integration | 0/TBD | Not started | - |
+| 5. Claude Code Integration | 1/2 | In Progress|  |
 | 6. Runtime Visualization | 0/TBD | Not started | - |
