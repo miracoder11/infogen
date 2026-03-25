@@ -48,17 +48,17 @@
 
 ### VID — Video Demo (视频演示)
 
-- [ ] **VID-01**: 基础视频生成
+- [x] **VID-01**: 基础视频生成
   - Trace → 演示视频转换
   - 支持基本转场
   - 添加时间标注
 
-- [ ] **VID-02**: 浏览器自动化录制
+- [x] **VID-02**: 浏览器自动化录制
   - Playwright集成
   - 支持常见UI操作录制
   - 语义选择器（避免脆弱的CSS选择器）
 
-- [ ] **VID-03**: 视频输出格式
+- [x] **VID-03**: 视频输出格式
   - MP4格式支持
   - 可配置分辨率
   - 合理的文件大小
@@ -129,9 +129,9 @@
 | OBS-02 | Phase 3 | Complete |
 | OBS-03 | Phase 3 | Complete |
 | OBS-04 | Phase 3 | Complete |
-| VID-01 | Phase 4 | Pending |
-| VID-02 | Phase 4 | Pending |
-| VID-03 | Phase 4 | Pending |
+| VID-01 | Phase 4 | Complete |
+| VID-02 | Phase 4 | Complete |
+| VID-03 | Phase 4 | Complete |
 | INT-01 | Phase 5 | Pending |
 | INT-02 | Phase 5 | Pending |
 | INT-03 | Phase 5 | Pending |
