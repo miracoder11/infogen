@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Timeline } from './Timeline';
 import { SpanInspector } from './SpanInspector';
 import { DataFlowDiagram } from './DataFlowDiagram';
+import { ExecutionTrajectory } from './ExecutionTrajectory';
 import './TraceDetail.css';
 
-type ViewTab = 'timeline' | 'diagram';
+type ViewTab = 'timeline' | 'diagram' | 'trajectory';
 
 interface TraceDetailProps {
   traceId: string;
@@ -39,6 +40,12 @@ export function TraceDetail({ traceId, onBack }: TraceDetailProps) {
         >
           Diagram
         </button>
+        <button
+          className={`tab-button ${activeTab === 'trajectory' ? 'active' : ''}`}
+          onClick={() => setActiveTab('trajectory')}
+        >
+          Trajectory
+        </button>
       </div>
 
       <div className="trace-detail-content">
@@ -51,6 +58,13 @@ export function TraceDetail({ traceId, onBack }: TraceDetailProps) {
               traceId={traceId}
               onNodeSelect={setSelectedSpanId}
               selectedNodeId={selectedSpanId}
+            />
+          )}
+          {activeTab === 'trajectory' && (
+            <ExecutionTrajectory
+              traceId={traceId}
+              onStepSelect={setSelectedSpanId}
+              selectedStepId={selectedSpanId}
             />
           )}
         </div>
