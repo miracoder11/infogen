@@ -32,17 +32,17 @@
   - 支持嵌套Span（LLM调用、工具调用、Agent动作）
   - 时间戳精度毫秒级
 
-- [ ] **OBS-02**: 时间线视图
+- [x] **OBS-02**: 时间线视图
   - 可视化执行顺序和时序
   - Span持续时间显示
   - 支持缩放和筛选
 
-- [ ] **OBS-03**: 输入/输出检查
+- [x] **OBS-03**: 输入/输出检查
   - 查看每步的prompt/response
   - Markdown渲染
   - 代码语法高亮
 
-- [ ] **OBS-04**: Session过滤
+- [x] **OBS-04**: Session过滤
   - 按项目、时间范围、状态筛选
   - 按交付物类型筛选
 
@@ -126,9 +126,9 @@
 | METH-02 | Phase 1 | Complete |
 | METH-03 | Phase 1 | Complete |
 | OBS-01 | Phase 2 | Complete |
-| OBS-02 | Phase 3 | Pending |
-| OBS-03 | Phase 3 | Pending |
-| OBS-04 | Phase 3 | Pending |
+| OBS-02 | Phase 3 | Complete |
+| OBS-03 | Phase 3 | Complete |
+| OBS-04 | Phase 3 | Complete |
 | VID-01 | Phase 4 | Pending |
 | VID-02 | Phase 4 | Pending |
 | VID-03 | Phase 4 | Pending |
