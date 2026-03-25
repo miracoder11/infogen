@@ -12,7 +12,7 @@ This roadmap transforms agent execution into observable, demonstrable outputs. S
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Methodology Definition** - Define demo statement format, deliverable type mappings, and verification artifact standards
+- [x] **Phase 1: Methodology Definition** - Define demo statement format, deliverable type mappings, and verification artifact standards
 - [ ] **Phase 2: Trace Infrastructure** - Build OpenTelemetry-compatible trace capture with hierarchical spans
 - [ ] **Phase 3: Observability Interface** - Create timeline visualization and trace inspection UI
 - [ ] **Phase 4: Video Capture** - Implement Playwright-based browser automation and video recording
@@ -32,9 +32,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 01-01-PLAN.md - Demo Statement format specification (METH-01)
-- [ ] 01-02-PLAN.md - Deliverable type mapping rules (METH-02)
-- [ ] 01-03-PLAN.md - Verification artifact standards (METH-03)
+- [x] 01-01-PLAN.md - Demo Statement format specification (METH-01)
+- [x] 01-02-PLAN.md - Deliverable type mapping rules (METH-02)
+- [x] 01-03-PLAN.md - Verification artifact standards (METH-03)
 
 ### Phase 2: Trace Infrastructure
 **Goal**: Agent execution traces can be captured with hierarchical spans for observability
@@ -100,7 +100,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Methodology Definition | 0/3 | Ready to execute | - |
+| 1. Methodology Definition | 3/3 | Complete | 2026-03-25 |
 | 2. Trace Infrastructure | 0/TBD | Not started | - |
 | 3. Observability Interface | 0/TBD | Not started | - |
 | 4. Video Capture | 0/TBD | Not started | - |

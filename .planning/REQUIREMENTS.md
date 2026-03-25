@@ -8,18 +8,18 @@
 
 ### METH — Methodology (方法论)
 
-- [ ] **METH-01**: 定义「Demo Statement」声明格式
+- [x] **METH-01**: 定义「Demo Statement」声明格式
   - 格式: "当我完成时，你会看到[可观察的结果]"
   - 包含验证标准列表
   - 与交付物类型关联
 
-- [ ] **METH-02**: 定义四种交付物类型与展示形式映射规则
+- [x] **METH-02**: 定义四种交付物类型与展示形式映射规则
   - 代码/框架 → 视频演示 + 运行时可视化
   - 方法论/Skill → 演示使用 + 可执行文档
   - 测试/质量 → 覆盖率可视化 + 验证产物
   - 变更/重构 → 对比图 + 影响范围
 
-- [ ] **METH-03**: 定义验证产物标准
+- [x] **METH-03**: 定义验证产物标准
   - 截图格式与命名规范
   - 日志格式
   - 测试结果格式
@@ -120,25 +120,23 @@
 
 ## Traceability
 
-*Filled by roadmap creation*
-
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| METH-01 | - | - |
-| METH-02 | - | - |
-| METH-03 | - | - |
-| OBS-01 | - | - |
-| OBS-02 | - | - |
-| OBS-03 | - | - |
-| OBS-04 | - | - |
-| VID-01 | - | - |
-| VID-02 | - | - |
-| VID-03 | - | - |
-| INT-01 | - | - |
-| INT-02 | - | - |
-| INT-03 | - | - |
-| RUN-01 | - | - |
-| RUN-02 | - | - |
+| METH-01 | Phase 1 | Complete |
+| METH-02 | Phase 1 | Complete |
+| METH-03 | Phase 1 | Complete |
+| OBS-01 | Phase 2 | Pending |
+| OBS-02 | Phase 3 | Pending |
+| OBS-03 | Phase 3 | Pending |
+| OBS-04 | Phase 3 | Pending |
+| VID-01 | Phase 4 | Pending |
+| VID-02 | Phase 4 | Pending |
+| VID-03 | Phase 4 | Pending |
+| INT-01 | Phase 5 | Pending |
+| INT-02 | Phase 5 | Pending |
+| INT-03 | Phase 5 | Pending |
+| RUN-01 | Phase 6 | Pending |
+| RUN-02 | Phase 6 | Pending |
 
 ---
 
