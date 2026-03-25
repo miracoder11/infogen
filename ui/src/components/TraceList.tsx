@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { TraceDetail } from './TraceDetail';
 import './TraceList.css';
 
 export interface TraceSummary {
@@ -11,10 +12,15 @@ export interface TraceSummary {
   storedAt: number;
 }
 
-export function TraceList() {
+interface TraceListProps {
+  onSelectTrace?: (traceId: string) => void;
+}
+
+export function TraceList({ onSelectTrace }: TraceListProps) {
   const [traces, setTraces] = useState<TraceSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedTraceId, setSelectedTraceId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/traces')
@@ -32,6 +38,19 @@ export function TraceList() {
       });
   }, []);
 
+  const handleTraceClick = (traceId: string) => {
+    setSelectedTraceId(traceId);
+    onSelectTrace?.(traceId);
+  };
+
+  const handleBack = () => {
+    setSelectedTraceId(null);
+  };
+
+  if (selectedTraceId) {
+    return <TraceDetail traceId={selectedTraceId} onBack={handleBack} />;
+  }
+
   if (loading) return <div className="loading">Loading traces...</div>;
   if (error) return <div className="error">Error: {error}</div>;
   if (traces.length === 0)
@@ -42,14 +61,14 @@ export function TraceList() {
       <h2>Execution Traces</h2>
       <div className="traces">
         {traces.map((trace) => (
-          <TraceCard key={trace.traceId} trace={trace} />
+          <TraceCard key={trace.traceId} trace={trace} onClick={() => handleTraceClick(trace.traceId)} />
         ))}
       </div>
     </div>
   );
 }
 
-function TraceCard({ trace }: { trace: TraceSummary }) {
+function TraceCard({ trace, onClick }: { trace: TraceSummary; onClick: () => void }) {
   const formatDuration = (ns: number): string => {
     const ms = ns / 1_000_000;
     if (ms < 1000) return `${ms.toFixed(1)}ms`;
@@ -61,7 +80,7 @@ function TraceCard({ trace }: { trace: TraceSummary }) {
   };
 
   return (
-    <div className="trace-card">
+    <div className="trace-card" onClick={onClick}>
       <div className="trace-header">
         <span className="trace-id">{formatTraceId(trace.traceId)}</span>
         {trace.statementId && (
