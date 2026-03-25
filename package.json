@@ -8,6 +8,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "server": "node --import tsx src/api/cli.ts",
+    "demo": "node --import tsx src/examples/trace-demo.ts",
     "test": "node --import tsx --test '**/*.test.ts'",
     "test:coverage": "c8 --include=src/**/*.ts --all node --import tsx --test '**/*.test.ts'"
   },
@@ -22,6 +24,8 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/node": "^22.0.0",
     "c8": "^10.0.0",
     "tsx": "^4.0.0",
@@ -33,6 +37,8 @@
     "@opentelemetry/resources": "^2.6.1",
     "@opentelemetry/sdk-node": "^0.214.0",
     "@opentelemetry/sdk-trace-base": "^2.6.1",
-    "@opentelemetry/semantic-conventions": "^1.40.0"
+    "@opentelemetry/semantic-conventions": "^1.40.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
   }
 }
