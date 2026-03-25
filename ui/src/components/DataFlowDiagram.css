@@ -1,0 +1,330 @@
+/* DataFlowDiagram Component Styles */
+
+.diagram-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8fafc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.diagram-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.diagram-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.diagram-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.diagram-controls button {
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.diagram-controls button:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.zoom-level {
+  font-size: 12px;
+  color: #64748b;
+  min-width: 40px;
+  text-align: center;
+}
+
+.diagram-legend {
+  display: flex;
+  gap: 16px;
+  padding: 8px 16px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-color.agent {
+  background: #3b82f6;
+}
+
+.legend-color.llm {
+  background: #8b5cf6;
+}
+
+.legend-color.tool {
+  background: #10b981;
+}
+
+.legend-color.custom {
+  background: #6b7280;
+}
+
+.diagram-canvas {
+  flex: 1;
+  width: 100%;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+/* Node Styles */
+.diagram-node {
+  transition: opacity 0.2s ease;
+}
+
+.diagram-node .node-bg {
+  fill: white;
+  stroke: #e2e8f0;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+  transition: all 0.2s ease;
+}
+
+.diagram-node:hover .node-bg {
+  stroke: #94a3b8;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.diagram-node.selected .node-bg {
+  stroke: #3b82f6;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 0 2px rgba(59, 130, 246, 0.2));
+}
+
+.diagram-node.connected .node-bg {
+  stroke: #93c5fd;
+}
+
+.diagram-node.error .node-bg {
+  stroke: #fca5a5;
+  fill: #fef2f2;
+}
+
+/* Node Type Colors */
+.diagram-node.type-agent .node-bg {
+  fill: #eff6ff;
+  stroke: #93c5fd;
+}
+
+.diagram-node.type-agent.selected .node-bg {
+  stroke: #3b82f6;
+}
+
+.diagram-node.type-llm .node-bg {
+  fill: #f5f3ff;
+  stroke: #c4b5fd;
+}
+
+.diagram-node.type-llm.selected .node-bg {
+  stroke: #8b5cf6;
+}
+
+.diagram-node.type-tool .node-bg {
+  fill: #ecfdf5;
+  stroke: #6ee7b7;
+}
+
+.diagram-node.type-tool.selected .node-bg {
+  stroke: #10b981;
+}
+
+.diagram-node.type-custom .node-bg {
+  fill: #f9fafb;
+  stroke: #d1d5db;
+}
+
+.diagram-node.type-custom.selected .node-bg {
+  stroke: #6b7280;
+}
+
+.diagram-node .node-label {
+  fill: #1e293b;
+}
+
+/* Edge Styles */
+.diagram-edge path {
+  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+}
+
+.diagram-edge.highlighted path {
+  stroke: #3b82f6;
+  stroke-width: 2;
+}
+
+.edge-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Node Details Panel */
+.diagram-node-info {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 280px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.node-details-panel {
+  padding: 16px;
+}
+
+.node-details-panel h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.node-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.node-detail-row .label {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.node-detail-row span:not(.label) {
+  font-size: 12px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.type-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.type-badge.agent {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.type-badge.llm {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.type-badge.tool {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.type-badge.custom {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.ok {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-badge.error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.node-attributes {
+  margin-top: 12px;
+}
+
+.node-attributes .label {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.node-attributes pre {
+  margin: 0;
+  padding: 8px;
+  background: #f8fafc;
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #475569;
+  overflow-x: auto;
+  max-height: 120px;
+}
+
+/* Loading/Error States */
+.diagram-loading,
+.diagram-error,
+.diagram-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.diagram-error {
+  color: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .diagram-legend {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .diagram-node-info {
+    position: static;
+    width: 100%;
+    border-radius: 0;
+    margin-top: 16px;
+  }
+}
