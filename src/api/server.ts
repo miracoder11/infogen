@@ -94,19 +94,23 @@ app.get('/api/traces/:id', (req: Request, res: Response) => {
     startTime: trace.startTime,
     duration: trace.duration,
     storedAt: trace.storedAt,
-    spans: trace.spans.map(span => ({
-      spanId: span.spanContext().spanId,
-      parentSpanId: (span as any).parentSpanId || null,
-      name: span.name,
-      kind: span.kind,
-      startTime: span.startTime,
-      endTime: span.endTime,
-      duration: span.duration,
-      status: span.status,
-      attributes: span.attributes,
-      events: span.events,
-      links: span.links,
-    })),
+    spans: trace.spans.map(span => {
+      // Handle both real Span objects and plain objects
+      const spanId = typeof span.spanContext === 'function' ? span.spanContext().spanId : (span as any).spanId;
+      return {
+        spanId,
+        parentSpanId: (span as any).parentSpanId || null,
+        name: span.name,
+        kind: span.kind,
+        startTime: span.startTime,
+        endTime: span.endTime,
+        duration: span.duration,
+        status: span.status,
+        attributes: span.attributes,
+        events: span.events,
+        links: span.links,
+      };
+    }),
   };
 
   res.json(serialized);
@@ -136,19 +140,23 @@ app.get('/api/traces/:id/mermaid', (req: Request, res: Response) => {
     deliverableType: trace.deliverableType,
     startTime: trace.startTime,
     duration: trace.duration,
-    spans: trace.spans.map(span => ({
-      spanId: span.spanContext().spanId,
-      parentSpanId: (span as any).parentSpanId || null,
-      name: span.name,
-      kind: span.kind,
-      startTime: span.startTime,
-      endTime: span.endTime,
-      duration: span.duration,
-      status: span.status,
-      attributes: span.attributes,
-      events: span.events,
-      links: span.links,
-    })),
+    spans: trace.spans.map(span => {
+      // Handle both real Span objects and plain objects
+      const spanId = typeof span.spanContext === 'function' ? span.spanContext().spanId : (span as any).spanId;
+      return {
+        spanId,
+        parentSpanId: (span as any).parentSpanId || null,
+        name: span.name,
+        kind: span.kind,
+        startTime: span.startTime,
+        endTime: span.endTime,
+        duration: span.duration,
+        status: span.status,
+        attributes: span.attributes,
+        events: span.events,
+        links: span.links,
+      };
+    }),
   };
 
   // Generate Mermaid syntax based on type
@@ -334,6 +342,79 @@ app.delete('/api/traces', (req: Request, res: Response) => {
   const storage = getTraceStorage();
   storage.clear();
   res.json({ message: 'All traces cleared' });
+});
+
+/**
+ * POST /api/seed - Seed demo traces for UI demonstration
+ */
+app.post('/api/seed', (req: Request, res: Response) => {
+  const storage = getTraceStorage();
+  storage.clear();
+
+  const baseTime = Date.now() * 1_000_000;
+
+  // Demo Trace 1: Login Form Implementation
+  const trace1 = {
+    traceId: 'trace-login-form-001',
+    statementId: 'ds-20260326-001',
+    deliverableType: 'code',
+    startTime: baseTime,
+    duration: 500_000_000,
+    storedAt: baseTime,
+    spans: [
+      { spanId: 'span-agent-1', parentSpanId: null, name: 'agent.execute_task', kind: 0, startTime: baseTime, endTime: baseTime + 500_000_000, duration: 500_000_000, status: { code: 1 }, attributes: { 'infogen.statement_id': 'ds-20260326-001', 'infogen.agent_status': 'success' }, events: [{ name: 'task_started', time: baseTime + 1_000_000, attributes: { task: 'Build login form' } }] },
+      { spanId: 'span-llm-1', parentSpanId: 'span-agent-1', name: 'llm.inference', kind: 0, startTime: baseTime + 10_000_000, endTime: baseTime + 200_000_000, duration: 190_000_000, status: { code: 1 }, attributes: { 'infogen.llm.provider': 'anthropic', 'infogen.llm.model': 'claude-3-sonnet', 'infogen.llm.input_tokens': 256, 'infogen.llm.output_tokens': 512 }, events: [] },
+      { spanId: 'span-tool-1', parentSpanId: 'span-agent-1', name: 'tool.write_file', kind: 0, startTime: baseTime + 210_000_000, endTime: baseTime + 250_000_000, duration: 40_000_000, status: { code: 1 }, attributes: { 'infogen.tool.name': 'write_file', 'infogen.tool.result': 'success' }, events: [{ name: 'file_written', time: baseTime + 249_000_000, attributes: { path: 'LoginForm.tsx', size: 2048 } }] },
+      { spanId: 'span-tool-2', parentSpanId: 'span-agent-1', name: 'tool.write_file', kind: 0, startTime: baseTime + 260_000_000, endTime: baseTime + 300_000_000, duration: 40_000_000, status: { code: 1 }, attributes: { 'infogen.tool.name': 'write_file', 'infogen.tool.result': 'success' }, events: [] },
+      { spanId: 'span-tool-3', parentSpanId: 'span-agent-1', name: 'tool.run_test', kind: 0, startTime: baseTime + 310_000_000, endTime: baseTime + 450_000_000, duration: 140_000_000, status: { code: 1 }, attributes: { 'infogen.tool.name': 'run_test', 'infogen.tool.result': 'success' }, events: [{ name: 'test_passed', time: baseTime + 449_000_000, attributes: { passed: 5, failed: 0 } }] },
+    ],
+  };
+
+  // Demo Trace 2: API Endpoint
+  const trace2 = {
+    traceId: 'trace-api-endpoint-002',
+    statementId: 'ds-20260326-002',
+    deliverableType: 'code',
+    startTime: baseTime + 1_000_000_000,
+    duration: 800_000_000,
+    storedAt: baseTime + 1_000_000_000,
+    spans: [
+      { spanId: 'span-agent-2', parentSpanId: null, name: 'agent.execute_task', kind: 0, startTime: baseTime + 1_000_000_000, endTime: baseTime + 1_800_000_000, duration: 800_000_000, status: { code: 1 }, attributes: { 'infogen.statement_id': 'ds-20260326-002', 'infogen.agent_status': 'success' }, events: [] },
+      { spanId: 'span-llm-2', parentSpanId: 'span-agent-2', name: 'llm.inference', kind: 0, startTime: baseTime + 1_010_000_000, endTime: baseTime + 1_300_000_000, duration: 290_000_000, status: { code: 1 }, attributes: { 'infogen.llm.provider': 'anthropic', 'infogen.llm.model': 'claude-3-sonnet', 'infogen.llm.input_tokens': 512, 'infogen.llm.output_tokens': 1024 }, events: [] },
+      { spanId: 'span-llm-3', parentSpanId: 'span-agent-2', name: 'llm.inference', kind: 0, startTime: baseTime + 1_350_000_000, endTime: baseTime + 1_550_000_000, duration: 200_000_000, status: { code: 1 }, attributes: { 'infogen.llm.provider': 'anthropic', 'infogen.llm.model': 'claude-3-sonnet', 'infogen.llm.input_tokens': 256, 'infogen.llm.output_tokens': 768 }, events: [] },
+      { spanId: 'span-tool-4', parentSpanId: 'span-agent-2', name: 'tool.write_file', kind: 0, startTime: baseTime + 1_560_000_000, endTime: baseTime + 1_600_000_000, duration: 40_000_000, status: { code: 1 }, attributes: { 'infogen.tool.name': 'write_file', 'infogen.tool.result': 'success' }, events: [] },
+      { spanId: 'span-tool-5', parentSpanId: 'span-agent-2', name: 'tool.run_command', kind: 0, startTime: baseTime + 1_610_000_000, endTime: baseTime + 1_750_000_000, duration: 140_000_000, status: { code: 1 }, attributes: { 'infogen.tool.name': 'run_command', 'infogen.tool.result': 'success' }, events: [] },
+    ],
+  };
+
+  // Demo Trace 3: Error case
+  const trace3 = {
+    traceId: 'trace-error-003',
+    statementId: 'ds-20260326-003',
+    deliverableType: 'code',
+    startTime: baseTime + 3_000_000_000,
+    duration: 400_000_000,
+    storedAt: baseTime + 3_000_000_000,
+    spans: [
+      { spanId: 'span-agent-3', parentSpanId: null, name: 'agent.execute_task', kind: 0, startTime: baseTime + 3_000_000_000, endTime: baseTime + 3_400_000_000, duration: 400_000_000, status: { code: 2 }, attributes: { 'infogen.statement_id': 'ds-20260326-003', 'infogen.agent_status': 'error' }, events: [] },
+      { spanId: 'span-llm-4', parentSpanId: 'span-agent-3', name: 'llm.inference', kind: 0, startTime: baseTime + 3_010_000_000, endTime: baseTime + 3_200_000_000, duration: 190_000_000, status: { code: 1 }, attributes: { 'infogen.llm.provider': 'anthropic', 'infogen.llm.model': 'claude-3-sonnet' }, events: [] },
+      { spanId: 'span-tool-6', parentSpanId: 'span-agent-3', name: 'tool.run_test', kind: 0, startTime: baseTime + 3_210_000_000, endTime: baseTime + 3_350_000_000, duration: 140_000_000, status: { code: 2 }, attributes: { 'infogen.tool.name': 'run_test', 'infogen.tool.result': 'error', 'error.type': 'AssertionError', 'error.message': 'Expected true to be false' }, events: [] },
+    ],
+  };
+
+  // Store traces directly in storage's internal map
+  (storage as any).traces.set(trace1.traceId, trace1);
+  (storage as any).traces.set(trace2.traceId, trace2);
+  (storage as any).traces.set(trace3.traceId, trace3);
+
+  res.json({
+    message: 'Demo traces seeded',
+    traces: [
+      { id: trace1.traceId, spans: trace1.spans.length },
+      { id: trace2.traceId, spans: trace2.spans.length },
+      { id: trace3.traceId, spans: trace3.spans.length },
+    ],
+  });
 });
 
 /**
